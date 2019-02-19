@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+<div class="signalr-demo">
+    <form id="message-form">
+        <input type="text" id="message-box" class="form-control" />
+    </form>
+    <hr />
+    <ul id="messages"></ul>
+</div>
+
+<script>
+    const messageForm = document.getElementById("message-form");
+    const messageBox = document.getElementById("message-box");
+    const messages = document.getElementById("messages");
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.start()
+        .then(() => console.log("connected!"))
+        .catch(console.error);
+
+    messageForm.addEventListener('submit', ev => {
+        ev.preventDefault();
+        const message = messageBox.value;
+        connection.invoke("BroadcastMessage", message);
+        message.value = '';
+    })
+
+    connection.on("newMessage", (values) => {
+        console.log(` ${ values.sender } : ${ values.message } `);
+
+        const newMessage = document.createElement('p');
+        newMessage.classList = "alert alert-primary";
+        newMessage.appendChild(
+            document.createTextNode(` ${values.sender} : ${values.message} `));
+        messages.appendChild(newMessage);
+    })
+
+</script>
