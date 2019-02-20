@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SignalRChat.Models.Chat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace SignalRChat.Models.Users
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public List<UserGroup> UserGroups { get; set; }
+        public List<Connection> Connections { get; set; }
     }
 }

@@ -16,12 +16,12 @@ namespace SignalRChat.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("Chat");
-            base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUser>().ToTable("ApplicationUser");
             builder.Entity<ApplicationRole>().ToTable("ApplicationRole");
             builder.Entity<UserRole>().ToTable("UserRole");
 
+            base.OnModelCreating(builder);
         }
     }
 }
