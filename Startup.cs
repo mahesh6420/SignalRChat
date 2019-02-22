@@ -14,6 +14,7 @@ using SignalRChat.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalRChat.Hubs;
+using SignalRChat.Models.Users;
 
 namespace SignalRChat
 {
@@ -44,7 +45,7 @@ namespace SignalRChat
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

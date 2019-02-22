@@ -1,0 +1,19 @@
+﻿@model List<SignalRChat.Models.Users.ApplicationUser>
+
+@{ 
+    ViewData["Title"] = "Users List";
+}
+
+@if (Model is null && Model.Count == 0)
+{
+    <p>Cannot Find any users </p>
+}
+else
+{
+    foreach(SignalRChat.Models.Users.ApplicationUser user in Model)
+    {
+        <span class="alert alert-primary">
+            @user.FirstName @user.LastName <a asp-controller="Message" asp-route-id="@user.Id" class="btn btn-primary">Send Message</a>
+        </span>
+    }
+}
